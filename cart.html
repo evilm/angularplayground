@@ -1,0 +1,53 @@
+<!doctype html>
+<html ng-app>
+<body>
+<div ng-controller=CartCtrl>
+    <h3>Catalog</h3>
+    <table style="table-layout: fixed">
+        <thead>
+        <tr style="font-weight: bold">
+            <td style="width: 15em">Product</td>
+            <td style="width: 5em; text-align: right">Price</td>
+            <td style="width: 20em"></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="product in catalog">
+            <td>{{product.name}}</td>
+            <td style="text-align: right">{{product.price.toFixed(2)}}</td>
+            <td><input type="button" value="Add to cart" ng-click="cart.add(product)"></td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Your Cart</h3>
+    <table>
+        <thead>
+        <tr style="font-weight: bold">
+            <td style="width: 15em">Product</td>
+            <td style="width: 5em; text-align: right">Price</td>
+            <td style="width: 3em; text-align: right">Number</td>
+            <td style="width: 5em; text-align: right">Total</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="lineItem in cart.lineItems">
+            <td>{{lineItem.product.name}}</td>
+            <td style="text-align: right">{{lineItem.product.price.toFixed(2)}}</td>
+            <td><input type="number" ng-model="lineItem.number" min="1" style="text-align: right"></td>
+            <td style="text-align: right">{{lineItem.totalPrice().toFixed(2)}}</td>
+            <td><input type="button" value="Remove from cart" ng-click="cart.remove($index)"></td>
+        </tr>
+        <tr style="font-weight: bold; font-size: larger">
+            <td><b>Total</b></td>
+            <td></td>
+            <td style="text-align: right">{{cart.totalNumber()}}</td>
+            <td style="text-align: right">{{cart.totalPrice().toFixed(2)}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+<script src="cart.js"></script>
+</body>
+</html>
